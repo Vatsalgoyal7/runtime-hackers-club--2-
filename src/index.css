@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-hacker-green: #00cc33;
+  --color-hacker-blue: #00f2ff;
+  --color-hacker-dark: #0a0a0a;
+  --color-hacker-card: rgba(20, 20, 20, 0.8);
+  
+  /* Light Theme Colors */
+  --color-light-bg: #f8fafc;
+  --color-light-text: #0f172a;
+  --color-light-card: rgba(255, 255, 255, 0.8);
+}
+
+@layer base {
+  :root {
+    --bg-color: var(--color-hacker-dark);
+    --text-color: #ffffff;
+    --card-bg: var(--color-hacker-card);
+    --accent-color: var(--color-hacker-green);
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :root.light {
+    --bg-color: var(--color-light-bg);
+    --text-color: var(--color-light-text);
+    --card-bg: var(--color-light-card);
+    --accent-color: #059669; /* Slightly toned down green */
+    --border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  :root.hack {
+    --bg-color: #000000;
+    --text-color: #00cc33;
+    --card-bg: rgba(0, 20, 0, 0.9);
+    --accent-color: #00cc33;
+    --border-color: #00cc33;
+  }
+
+  body {
+    @apply transition-all duration-300 ease-in-out font-sans selection:bg-hacker-green selection:text-black;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono tracking-tight;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply transition-all duration-300 ease-in-out backdrop-blur-md border;
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+  }
+  
+  .neon-border {
+    @apply border transition-all duration-300;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 204, 51, 0.1);
+  }
+
+  .neon-text {
+    @apply transition-all duration-300;
+    color: var(--accent-color);
+    text-shadow: 0 0 8px rgba(0, 204, 51, 0.5);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 font-mono font-bold rounded-sm transition-all duration-300 transform hover:-translate-y-1 active:scale-95;
+    background-color: var(--accent-color);
+    color: #000000;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-white dark:bg-white;
+    color: #000000;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border font-mono font-bold rounded-sm transition-all duration-300 transform hover:-translate-y-1 active:scale-95;
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+  }
+  
+  .btn-secondary:hover {
+    background-color: rgba(0, 204, 51, 0.1);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full transition-colors;
+  background-color: rgba(0, 204, 51, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 204, 51, 0.4);
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s infinite linear alternate-reverse;
+}
+
+/* Matrix Effect for Hack Mode */
+.hack .matrix-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('https://picsum.photos/seed/matrix/1920/1080');
+  background-size: cover;
+}
+
+.hack .neon-border {
+  box-shadow: 0 0 20px #00cc33, inset 0 0 10px #00cc33;
+}
